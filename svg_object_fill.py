@@ -86,7 +86,8 @@ class ViewShapeColorShader(StrokeShader):
             material = CurveMaterialF0D()(
                 Interface0DIterator(stroke.stroke_vertices_begin()))
             color = material.diffuse[0:3]
-            item = ([stroke], color)
+            alpha = material.diffuse[3]
+            item = ([stroke], color, alpha)
             shape_map[shape] = item
         else:
             item[0].append(stroke)
@@ -101,8 +102,8 @@ shaders_list = [
 Operators.create(TrueUP1D(), shaders_list)
 
 def write_fill(item):
-    f.write('<path fill-rule="evenodd" fill="#%02x%02x%02x" stroke="none" d="\n'
-        % tuple(map(lambda c: c * 255, item[1])))
+    f.write('<path fill-rule="evenodd" fill="#%02x%02x%02x" fill-opacity="%.2f" stroke="none" d="\n'
+        % (tuple(map(lambda c: c * 255, item[1])) + (item[2],)))
     for stroke in item[0]:
         points = []
         f.write('M ')
