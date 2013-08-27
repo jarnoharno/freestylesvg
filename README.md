@@ -2,7 +2,7 @@
 
 Python style modules for writing SVG output in Blender. Features filled contour paths.
 
-![Table and chair](example/table_and_chair.svg)
+![Table and chair](https://rawgithub.com/jlep/freestylesvg/master/example/table_and_chair.svg)
 
 *Model by [yellowpanda](http://www.blendswap.com/blends/view/69490)*
 
