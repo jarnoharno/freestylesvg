@@ -1,6 +1,6 @@
 #  License  : MIT
-#  Author   : Jarno Leppänen
-#  Date     : 2013-08-26
+#  Author   : Jarno Leppänen, Francesco Fantoni
+#  Date     : 2014-03-24
 
 import re
 import bpy
@@ -12,8 +12,9 @@ _HEADER = """\
     width="%d" height="%d">
 """
 
-scene = freestyle.getCurrentScene()
-path = re.sub(r'\.blend$|$', '.svg', bpy.data.filepath)
+scene = freestyle.utils.getCurrentScene()
+current_frame = scene.frame_current
+path = re.sub(r'\.blend$|$', '%06d.svg' % current_frame, bpy.data.filepath)
 f = open(path, "w")
 w = scene.render.resolution_x * scene.render.resolution_percentage / 100
 h = scene.render.resolution_y * scene.render.resolution_percentage / 100

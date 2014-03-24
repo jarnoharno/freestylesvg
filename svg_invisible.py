@@ -1,18 +1,16 @@
 #  License  : MIT
-#  Author   : Jarno Leppänen
-#  Date     : 2013-08-26
+#  Author   : Jarno Leppänen, Francesco Fantoni
+#  Date     : 2014-03-24
 
 import os
 import re
 from freestyle import *
-from Functions0D import *
-from PredicatesB1D import *
-from PredicatesU0D import *
-from PredicatesU1D import *
-from logical_operators import *
-from shaders import *
+from freestyle.functions import *
+from freestyle.predicates import *
+from freestyle.types import *
+from freestyle.shaders import *
 from parameter_editor import *
-from ChainingIterators import *
+from freestyle.chainingiterators import *
 
 # select
 preds = [
@@ -30,11 +28,14 @@ Operators.bidirectional_chain(ChainSilhouetteIterator())
 # sort
 Operators.sort(pyZBP1D())
 
+scene = getCurrentScene()
+current_frame = scene.frame_current
+
 # shade and write svg
-path = re.sub(r'\.blend$|$', '.svg', bpy.data.filepath)
+path = re.sub(r'\.blend$|$', '%06d.svg' % current_frame, bpy.data.filepath)
 f = open(path, "a")
 
-scene = getCurrentScene()
+
 w = scene.render.resolution_x * scene.render.resolution_percentage / 100
 h = scene.render.resolution_y * scene.render.resolution_percentage / 100
 
@@ -52,9 +53,10 @@ shaders_list = [
     ConstantColorShader(1, 0, 0),
     ConstantThicknessShader(10)
     ]
-
+f.write('<g  id="layer_invisible" inkscape:groupmode="layer" inkscape:label="invisible">\n')
 f.write('<g id="invisible">\n')
 Operators.create(TrueUP1D(), shaders_list)
+f.write('</g>\n')
 f.write('</g>\n')
 
 f.close()
