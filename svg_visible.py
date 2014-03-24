@@ -1,18 +1,16 @@
 #  License  : MIT
-#  Author   : Jarno Leppänen
-#  Date     : 2013-08-26
+#  Author   : Jarno Leppänen, Francesco Fantoni
+#  Date     : 2014-03-24
 
 import os
 import re
 from freestyle import *
-from Functions0D import *
-from PredicatesB1D import *
-from PredicatesU0D import *
-from PredicatesU1D import *
-from logical_operators import *
-from shaders import *
+from freestyle.functions import *
+from freestyle.predicates import *
+from freestyle.types import *
+from freestyle.shaders import *
 from parameter_editor import *
-from ChainingIterators import *
+from freestyle.chainingiterators import *
 
 # select
 preds = [
@@ -52,8 +50,10 @@ shaders_list = [
     ConstantColorShader(0, 0, 1),
     ConstantThicknessShader(10)
     ]
+f.write('<g  id="layer_visible" inkscape:groupmode="layer" inkscape:label="visible">\n')
 f.write('<g id="visible">\n')
 Operators.create(TrueUP1D(), shaders_list)
+f.write('</g>\n')
 f.write('</g>\n')
 
 f.close()

@@ -1,20 +1,18 @@
 #  License  : MIT
-#  Author   : Jarno Leppänen
-#  Date     : 2013-08-26
+#  Author   : Jarno Leppänen, Francesco Fantoni
+#  Date     : 2014-03-24
 
 import os
 import re
 import bpy
 from bpy_extras.object_utils import world_to_camera_view
 from freestyle import *
-from Functions0D import *
-from PredicatesB1D import *
-from PredicatesU0D import *
-from PredicatesU1D import *
-from logical_operators import *
-from shaders import *
+from freestyle.functions import *
+from freestyle.predicates import *
+from freestyle.types import *
+from freestyle.shaders import *
 from parameter_editor import *
-from ChainingIterators import *
+from freestyle.chainingiterators import *
 
 scene = getCurrentScene()
 
@@ -113,11 +111,13 @@ def write_fill(item):
         f.write('z\n')
     f.write('" />\n')
 
+f.write('<g  id="layer_fills" inkscape:groupmode="layer" inkscape:label="fills">\n')
 f.write('<g id="fills">\n')
 if len(shape_map) == 1:
     write_fill(next(iter(shape_map.values())))
 else:
     for k, item in sorted(shape_map.items(), key = lambda x: -z_map[x[0]]):
         write_fill(item)
+f.write('</g>\n')
 f.write('</g>\n')
 f.close()

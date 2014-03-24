@@ -1,6 +1,6 @@
 #  License  : MIT
-#  Author   : Jarno Leppänen
-#  Date     : 2013-08-26
+#  Author   : Jarno Leppänen, Francesco Fantoni
+#  Date     : 2014-03-24
 
 import re
 import bpy
