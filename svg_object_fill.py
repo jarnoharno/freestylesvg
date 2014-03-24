@@ -15,6 +15,7 @@ from parameter_editor import *
 from freestyle.chainingiterators import *
 
 scene = getCurrentScene()
+current_frame = scene.frame_current
 
 # select
 preds = [
@@ -66,7 +67,7 @@ class ShapeZ(BinaryPredicate1D):
 Operators.sort(ShapeZ())
 
 # shade and write svg
-path = re.sub(r'\.blend$|$', '.svg', bpy.data.filepath)
+path = re.sub(r'\.blend$|$', '%06d.svg' % current_frame, bpy.data.filepath)
 f = open(path, "a")
 
 w = scene.render.resolution_x * scene.render.resolution_percentage / 100
